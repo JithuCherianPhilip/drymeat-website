@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DryMeat Co. | Premium Dried Meats</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--brown:#5c2d0a;--amber:#c8721c;--cream:#fdf6ee;--dark:#1a0f05;--light:#fff8f0}
+  body{font-family:'Segoe UI',sans-serif;background:var(--cream);color:var(--dark)}
+  /* NAV */
+  nav{background:var(--brown);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:65px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+  .logo{color:#fff;font-size:1.5rem;font-weight:700;letter-spacing:1px}
+  .logo span{color:var(--amber)}
+  .nav-right{display:flex;align-items:center;gap:20px}
+  nav a{color:#ddd;text-decoration:none;font-size:.9rem;transition:.2s}
+  nav a:hover{color:var(--amber)}
+  .cart-btn{background:var(--amber);color:#fff!important;padding:8px 18px;border-radius:25px;font-weight:600;cursor:pointer;border:none;font-size:.9rem;display:flex;align-items:center;gap:6px}
+  .cart-btn:hover{background:#a85e15}
+  /* HERO */
+  .hero{background:linear-gradient(135deg,var(--brown) 0%,#8b4513 60%,var(--amber) 100%);color:#fff;text-align:center;padding:90px 20px;position:relative;overflow:hidden}
+  .hero::before{content:'🥩';font-size:200px;position:absolute;top:-30px;right:-20px;opacity:.1}
+  .hero h1{font-size:3rem;font-weight:800;margin-bottom:15px;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+  .hero p{font-size:1.15rem;opacity:.9;max-width:500px;margin:0 auto 30px}
+  .hero-btn{background:#fff;color:var(--brown);padding:14px 36px;border-radius:30px;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:.2s}
+  .hero-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+  /* SECTION */
+  section{padding:60px 40px}
+  .section-title{text-align:center;font-size:1.8rem;font-weight:700;color:var(--brown);margin-bottom:8px}
+  .section-sub{text-align:center;color:#888;margin-bottom:40px;font-size:.95rem}
+  /* FILTERS */
+  .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:35px}
+  .filter-btn{padding:8px 22px;border-radius:20px;border:2px solid var(--brown);background:transparent;color:var(--brown);cursor:pointer;font-weight:600;transition:.2s}
+  .filter-btn.active,.filter-btn:hover{background:var(--brown);color:#fff}
+  /* PRODUCTS */
+  .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:25px;max-width:1100px;margin:0 auto}
+  .card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,.08);transition:.25s}
+  .card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+  .card-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:80px;background:linear-gradient(135deg,#ffecd2,#fcb69f)}
+  .card-body{padding:18px}
+  .card-tag{font-size:.72rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+  .card-name{font-size:1.05rem;font-weight:700;color:var(--brown);margin-bottom:6px}
+  .card-desc{font-size:.82rem;color:#777;margin-bottom:14px;line-height:1.5}
+  .card-footer{display:flex;align-items:center;justify-content:space-between}
+  .price{font-size:1.2rem;font-weight:800;color:var(--amber)}
+  .add-btn{background:var(--brown);color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;font-weight:600;font-size:.85rem;transition:.2s}
+  .add-btn:hover{background:var(--amber)}
+  /* BADGE */
+  .badge{background:#e74c3c;color:#fff;font-size:.65rem;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:700}
+  /* CART SIDEBAR */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200}
+  .overlay.open{display:block}
+  .cart-sidebar{position:fixed;right:-400px;top:0;height:100%;width:360px;background:#fff;z-index:300;transition:.3s ease;display:flex;flex-direction:column;box-shadow:-5px 0 30px rgba(0,0,0,.2)}
+  .cart-sidebar.open{right:0}
+  .cart-header{background:var(--brown);color:#fff;padding:20px;display:flex;justify-content:space-between;align-items:center}
+  .cart-header h2{font-size:1.1rem}
+  .close-btn{background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer}
+  .cart-items{flex:1;overflow-y:auto;padding:20px}
+  .cart-empty{text-align:center;color:#aaa;margin-top:60px;font-size:1rem}
+  .cart-item{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #f0e8df}
+  .cart-item-icon{font-size:36px;width:50px;text-align:center}
+  .cart-item-info{flex:1}
+  .cart-item-name{font-weight:700;font-size:.9rem;color:var(--brown)}
+  .cart-item-price{font-size:.85rem;color:var(--amber);font-weight:600}
+  .qty-ctrl{display:flex;align-items:center;gap:8px;margin-top:5px}
+  .qty-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--brown);background:none;color:var(--brown);font-weight:700;cursor:pointer;font-size:.9rem}
+  .qty-btn:hover{background:var(--brown);color:#fff}
+  .qty-num{font-size:.9rem;font-weight:700;min-width:20px;text-align:center}
+  .remove-btn{background:none;border:none;color:#e74c3c;font-size:1.1rem;cursor:pointer}
+  .cart-footer{padding:20px;border-top:2px solid #f0e8df}
+  .cart-total{display:flex;justify-content:space-between;font-size:1.1rem;font-weight:700;margin-bottom:15px}
+  .checkout-btn{width:100%;padding:14px;background:var(--amber);color:#fff;border:none;border-radius:25px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s}
+  .checkout-btn:hover{background:var(--brown)}
+  /* TOAST */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--brown);color:#fff;padding:12px 28px;border-radius:30px;font-weight:600;font-size:.9rem;opacity:0;transition:.3s;z-index:500}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  /* FEATURES */
+  .features{background:var(--brown);color:#fff}
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:900px;margin:0 auto;text-align:center}
+  .feat-icon{font-size:2.5rem;margin-bottom:12px}
+  .feat-title{font-weight:700;margin-bottom:6px;color:var(--amber)}
+  .feat-desc{font-size:.85rem;opacity:.8;line-height:1.5}
+  /* FOOTER */
+  footer{background:var(--dark);color:#aaa;text-align:center;padding:25px;font-size:.85rem}
+  footer span{color:var(--amber)}
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;align-items:center;justify-content:center}
+  .modal-overlay.open{display:flex}
+  .modal{background:#fff;border-radius:20px;padding:40px;max-width:400px;width:90%;text-align:center}
+  .modal h2{color:var(--brown);margin-bottom:10px;font-size:1.5rem}
+  .modal p{color:#777;margin-bottom:25px}
+  .modal-btn{background:var(--amber);color:#fff;border:none;padding:12px 36px;border-radius:25px;font-size:1rem;font-weight:700;cursor:pointer}
+  @media(max-width:600px){.hero h1{font-size:2rem}section{padding:40px 20px}nav{padding:0 20px}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Dry<span>Meat</span> Co.</div>
+  <div class="nav-right">
+    <a href="#products">Shop</a>
+    <a href="#features">About</a>
+    <button class="cart-btn" onclick="openCart()">🛒 Cart <span id="cart-count" style="background:#e74c3c;border-radius:50%;padding:1px 7px;font-size:.8rem">0</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Premium Dried Meats</h1>
+  <p>Handcrafted, naturally preserved, and packed with bold flavors — straight to your door.</p>
+  <button class="hero-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <h2 class="section-title">Our Products</h2>
+  <p class="section-sub">All natural. No artificial preservatives. Bold flavors.</p>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('beef',this)">Beef</button>
+    <button class="filter-btn" onclick="filterProducts('chicken',this)">Chicken</button>
+    <button class="filter-btn" onclick="filterProducts('pork',this)">Pork</button>
+    <button class="filter-btn" onclick="filterProducts('venison',this)">Venison</button>
+  </div>
+  <div class="products" id="product-grid"></div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="features">
+  <h2 class="section-title" style="color:#fff">Why Choose Us?</h2>
+  <p class="section-sub" style="color:#ddd;margin-bottom:40px">Quality you can taste, trust you can feel.</p>
+  <div class="feat-grid">
+    <div><div class="feat-icon">🌿</div><div class="feat-title">100% Natural</div><div class="feat-desc">No artificial additives, preservatives, or colorings.</div></div>
+    <div><div class="feat-icon">🚚</div><div class="feat-title">Fast Delivery</div><div class="feat-desc">Delivered in vacuum-sealed packs within 3–5 business days.</div></div>
+    <div><div class="feat-icon">🏆</div><div class="feat-title">Award-Winning</div><div class="feat-desc">Recognized for quality and taste at national food expos.</div></div>
+    <div><div class="feat-icon">♻️</div><div class="feat-title">Eco Packaging</div><div class="feat-desc">Sustainable, recyclable packaging for every order.</div></div>
+  </div>
+</section>
+
+<footer>© 2025 <span>DryMeat Co.</span> — All rights reserved. | A POC Demo Site</footer>
+
+<!-- CART SIDEBAR -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h2>🛒 Your Cart</h2>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cart-total">$0.00</span></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="order-modal">
+  <div class="modal">
+    <div style="font-size:3rem">🎉</div>
+    <h2>Order Placed!</h2>
+    <p>Thank you for your order! Your premium dry meats are being prepared and will be delivered within 3–5 business days.</p>
+    <button class="modal-btn" onclick="closeModal()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+  {id:1,name:"Classic Beef Jerky",category:"beef",emoji:"🥩",price:12.99,desc:"Smoky, tender beef strips seasoned with black pepper & garlic.",tag:"Best Seller"},
+  {id:2,name:"Spicy Beef Biltong",category:"beef",emoji:"🥩",price:14.99,desc:"South African-style biltong with a fiery chili kick.",tag:"Hot Pick"},
+  {id:3,name:"Honey BBQ Beef Strips",category:"beef",emoji:"🥩",price:13.49,desc:"Sweet honey glaze meets classic BBQ smoke.",tag:""},
+  {id:4,name:"Smoked Chicken Strips",category:"chicken",emoji:"🍗",price:11.99,desc:"Light, lean chicken strips slow-smoked over hickory wood.",tag:""},
+  {id:5,name:"Teriyaki Chicken Jerky",category:"chicken",emoji:"🍗",price:12.49,desc:"Japanese-inspired teriyaki glaze on tender chicken.",tag:"Popular"},
+  {id:6,name:"Lemon Pepper Chicken",category:"chicken",emoji:"🍗",price:11.49,desc:"Zesty citrus and cracked pepper on air-dried chicken.",tag:""},
+  {id:7,name:"Pork Rinds Snack Pack",category:"pork",emoji:"🐷",price:8.99,desc:"Crispy, crunchy pork rinds — keto-friendly and addictive.",tag:"Keto"},
+  {id:8,name:"Smoked Pork Jerky",category:"pork",emoji:"🐷",price:13.99,desc:"Rich, marbled pork with a deep hickory smoke profile.",tag:""},
+  {id:9,name:"Venison Jerky",category:"venison",emoji:"🦌",price:17.99,desc:"Wild-harvested deer meat, lean and protein-packed.",tag:"Premium"},
+  {id:10,name:"Venison Biltong",category:"venison",emoji:"🦌",price:19.99,desc:"Air-dried venison with coriander and clove spices.",tag:"Chef's Choice"},
+  {id:11,name:"Mixed Jerky Variety Pack",category:"beef",emoji:"🎁",price:34.99,desc:"A sampler of our 5 most loved jerky flavors in one box.",tag:"Value Pack"},
+  {id:12,name:"Maple Bacon Strips",category:"pork",emoji:"🥓",price:14.49,desc:"Real maple syrup candied over slow-cured bacon strips.",tag:""},
+];
+
+let cart = [];
+
+function renderProducts(filter='all'){
+  const grid = document.getElementById('product-grid');
+  const list = filter==='all' ? products : products.filter(p=>p.category===filter);
+  grid.innerHTML = list.map(p=>`
+    <div class="card">
+      <div class="card-img">${p.emoji}</div>
+      <div class="card-body">
+        <div class="card-tag">${p.category} ${p.tag?`<span class="badge">${p.tag}</span>`:''}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-desc">${p.desc}</div>
+        <div class="card-footer">
+          <div class="price">$${p.price.toFixed(2)}</div>
+          <button class="add-btn" onclick="addToCart(${p.id})">+ Add</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterProducts(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
+
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p, qty:1});
+  updateCart();
+  showToast(`✅ ${p.name} added to cart!`);
+}
+
+function updateCart(){
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent = count;
+  const itemsEl = document.getElementById('cart-items');
+  if(cart.length===0){
+    itemsEl.innerHTML='<div class="cart-empty">🛒 Your cart is empty.<br>Add some delicious meats!</div>';
+    document.getElementById('cart-total').textContent='$0.00';
+    return;
+  }
+  itemsEl.innerHTML = cart.map(i=>`
+    <div class="cart-item">
+      <div class="cart-item-icon">${i.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-price">$${(i.price*i.qty).toFixed(2)}</div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+          <span class="qty-num">${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" onclick="removeItem(${i.id})">🗑</button>
+    </div>`).join('');
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('cart-total').textContent=`$${total.toFixed(2)}`;
+}
+
+function changeQty(id, delta){
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<=0) cart = cart.filter(x=>x.id!==id);
+  updateCart();
+}
+
+function removeItem(id){
+  cart = cart.filter(x=>x.id!==id);
+  updateCart();
+}
+
+function openCart(){
+  document.getElementById('cart-sidebar').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+  updateCart();
+}
+
+function closeCart(){
+  document.getElementById('cart-sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function checkout(){
+  if(cart.length===0){showToast('⚠️ Your cart is empty!');return;}
+  closeCart();
+  document.getElementById('order-modal').classList.add('open');
+}
+
+function closeModal(){
+  cart=[];
+  updateCart();
+  document.getElementById('order-modal').classList.remove('open');
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+renderProducts();
+updateCart();
+</script>
+</body>
+</html>

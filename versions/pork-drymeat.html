@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PorkDry Co. | Premium Dry Pork Meat</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#8b1a1a;--amber:#c8531c;--cream:#fdf4ec;--dark:#1e0a0a;--light:#fff8f2;--gold:#d4a017}
+body{font-family:'Segoe UI',sans-serif;background:var(--cream);color:var(--dark);scroll-behavior:smooth}
+
+/* NAV */
+nav{background:var(--red);padding:0 60px;display:flex;align-items:center;justify-content:space-between;height:68px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.logo{color:#fff;font-size:1.4rem;font-weight:800;letter-spacing:1px}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:#ddd;text-decoration:none;font-size:.9rem;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--gold)}
+
+/* HERO */
+.hero{min-height:90vh;background:linear-gradient(135deg,#1e0a0a 0%,#5a1010 45%,#8b1a1a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 20px;position:relative;overflow:hidden}
+.hero::before{content:'🐷';font-size:320px;position:absolute;right:-60px;bottom:-60px;opacity:.07;transform:rotate(-15deg)}
+.hero-inner{position:relative;z-index:1}
+.hero-badge{display:inline-block;background:var(--gold);color:var(--dark);padding:5px 18px;border-radius:20px;font-size:.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-size:3.8rem;font-weight:900;color:#fff;line-height:1.1;margin-bottom:18px;text-shadow:0 3px 15px rgba(0,0,0,.5)}
+.hero h1 span{color:var(--gold)}
+.hero p{color:#ccc;font-size:1.1rem;max-width:520px;margin:0 auto 35px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--amber);color:#fff;padding:15px 40px;border-radius:30px;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:.2s}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(200,83,28,.5)}
+.btn-outline{background:transparent;color:#fff;padding:15px 40px;border-radius:30px;font-weight:700;font-size:1rem;border:2px solid rgba(255,255,255,.4);cursor:pointer;transition:.2s}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:55px;flex-wrap:wrap}
+.stat-num{font-size:2rem;font-weight:900;color:var(--gold)}
+.stat-label{font-size:.78rem;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* ORDER SECTION */
+.order-sec{padding:90px 40px;background:var(--light)}
+.sec-label{text-align:center;font-size:.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.sec-title{text-align:center;font-size:2.2rem;font-weight:800;color:var(--red);margin-bottom:8px}
+.sec-sub{text-align:center;color:#888;font-size:.95rem;margin-bottom:50px}
+
+.order-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;max-width:1000px;margin:0 auto}
+
+/* LEFT — visual */
+.product-visual{background:linear-gradient(135deg,#5a1010,#8b1a1a);border-radius:24px;padding:50px 30px;text-align:center;box-shadow:0 20px 60px rgba(139,26,26,.35);position:sticky;top:90px}
+.product-visual .big-emoji{font-size:120px;display:block;margin-bottom:16px}
+.p-vis-name{color:#fff;font-size:1.3rem;font-weight:800}
+.p-vis-tag{color:var(--gold);font-size:.8rem;font-weight:600;margin-top:6px;text-transform:uppercase;letter-spacing:1px}
+.p-vis-price{color:#fff;font-size:2.2rem;font-weight:900;margin-top:18px}
+.p-vis-per{color:rgba(255,255,255,.5);font-size:.85rem;margin-top:2px}
+.p-vis-note{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-size:.8rem;border-radius:12px;padding:8px 14px;margin-top:18px;line-height:1.5}
+
+/* RIGHT — configurator */
+.config-box{display:flex;flex-direction:column;gap:28px}
+.config-block{background:#fff;border-radius:18px;padding:24px;box-shadow:0 3px 15px rgba(0,0,0,.06)}
+.config-block h3{font-size:1rem;font-weight:700;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* FLAVOR */
+.flavor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.flavor-btn{padding:12px 10px;border-radius:12px;border:2px solid #e8d5cc;background:#fffaf7;cursor:pointer;text-align:center;transition:.2s;font-size:.85rem;font-weight:600;color:#666}
+.flavor-btn:hover{border-color:var(--red);color:var(--red)}
+.flavor-btn.active{border-color:var(--red);background:#fff0ec;color:var(--red)}
+.flavor-btn .f-emoji{font-size:1.4rem;display:block;margin-bottom:4px}
+
+/* KG SLIDER */
+.kg-display{text-align:center;margin-bottom:16px}
+.kg-num{font-size:3rem;font-weight:900;color:var(--red);line-height:1}
+.kg-unit{font-size:1rem;color:#aaa;font-weight:600}
+.kg-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(to right,var(--red) 0%,var(--red) 20%,#e8d5cc 20%);outline:none;cursor:pointer;margin-bottom:12px}
+.kg-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--red);cursor:pointer;box-shadow:0 2px 8px rgba(139,26,26,.4);border:3px solid #fff}
+.kg-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--red);cursor:pointer;border:3px solid #fff}
+.kg-marks{display:flex;justify-content:space-between;font-size:.75rem;color:#bbb;font-weight:600;padding:0 2px}
+.kg-presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.kg-preset{padding:7px 16px;border-radius:20px;border:1.5px solid #e8d5cc;background:#fffaf7;cursor:pointer;font-size:.82rem;font-weight:700;color:#777;transition:.2s}
+.kg-preset:hover,.kg-preset.active{background:var(--red);border-color:var(--red);color:#fff}
+
+/* SUMMARY */
+.summary-rows{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.sum-row{display:flex;justify-content:space-between;font-size:.92rem;color:#666;padding-bottom:10px;border-bottom:1px dashed #f0e0d8}
+.sum-row:last-child{border:none;font-size:1.1rem;font-weight:800;color:var(--dark)}
+.sum-row span:last-child{font-weight:700;color:var(--amber)}
+.sum-row:last-child span:last-child{color:var(--red);font-size:1.3rem}
+.order-btn{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:25px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:.2s}
+.order-btn:hover{background:var(--amber);transform:translateY(-2px);box-shadow:0 8px 24px rgba(139,26,26,.35)}
+
+/* STORY */
+.story-sec{padding:80px 40px;background:var(--red);color:#fff}
+.story-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.story-text h2{font-size:2rem;font-weight:800;margin-bottom:18px;color:var(--gold)}
+.story-text p{line-height:1.8;opacity:.85;font-size:.97rem;margin-bottom:14px}
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.step{display:flex;align-items:flex-start;gap:14px}
+.step-num{background:var(--gold);color:var(--dark);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+.step-txt{font-size:.9rem;opacity:.85;line-height:1.5;padding-top:5px}
+.story-icon{font-size:150px;text-align:center;opacity:.85}
+
+/* FEATURES */
+.feat-sec{padding:70px 40px;background:var(--light)}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:900px;margin:0 auto}
+.feat-card{background:#fff;border-radius:16px;padding:28px 20px;text-align:center;box-shadow:0 3px 15px rgba(0,0,0,.06)}
+.feat-icon{font-size:2.4rem;margin-bottom:12px}
+.feat-title{font-weight:700;color:var(--red);margin-bottom:7px}
+.feat-desc{font-size:.83rem;color:#777;line-height:1.6}
+
+/* REVIEWS */
+.rev-sec{padding:70px 40px;background:var(--cream)}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1000px;margin:0 auto}
+.rev-card{background:#fff;border-radius:16px;padding:26px;box-shadow:0 3px 15px rgba(0,0,0,.06)}
+.stars{color:var(--gold);margin-bottom:10px}
+.rev-text{font-size:.88rem;color:#555;line-height:1.6;font-style:italic;margin-bottom:16px}
+.rev-author{display:flex;align-items:center;gap:12px}
+.rev-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--amber));color:#fff;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.rev-name{font-weight:700;font-size:.88rem}
+.rev-date{font-size:.75rem;color:#aaa}
+
+/* FORM */
+.form-sec{padding:80px 40px;background:var(--red)}
+.form-sec .sec-title{color:#fff}
+.form-sec .sec-sub{color:rgba(255,255,255,.6)}
+.form-box{max-width:600px;margin:0 auto;background:#fff;border-radius:24px;padding:44px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:.8rem;font-weight:700;color:var(--red);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:11px 15px;border:1.5px solid #e8d5cc;border-radius:12px;font-size:.93rem;outline:none;font-family:inherit;background:#fffaf7;transition:.2s;color:var(--dark)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(139,26,26,.08)}
+.fg textarea{resize:vertical}
+.f-err{color:#e74c3c;font-size:.83rem;font-weight:600;margin-bottom:12px;display:none}
+.f-success{display:none;text-align:center;padding:20px 0}
+.sub-btn{width:100%;padding:15px;background:var(--red);color:#fff;border:none;border-radius:25px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s}
+.sub-btn:hover{background:var(--amber)}
+
+/* MODAL */
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center}
+.modal-wrap.open{display:flex}
+.modal-box{background:#fff;border-radius:24px;padding:50px 40px;max-width:420px;width:90%;text-align:center}
+.modal-box h2{color:var(--red);margin:14px 0 8px;font-size:1.5rem}
+.modal-box p{color:#666;line-height:1.7;margin-bottom:24px}
+.modal-detail{background:#fff8f2;border-radius:14px;padding:16px;margin-bottom:22px;font-size:.9rem;color:#555;line-height:1.8;text-align:left}
+.modal-detail strong{color:var(--red)}
+.modal-close{background:var(--amber);color:#fff;border:none;padding:12px 36px;border-radius:22px;font-size:1rem;font-weight:700;cursor:pointer}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--red);color:#fff;padding:12px 28px;border-radius:30px;font-weight:600;font-size:.9rem;opacity:0;transition:.3s;z-index:400;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{background:#0e0404;color:#777;text-align:center;padding:26px 20px;font-size:.84rem}
+footer span{color:var(--gold)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .hero h1{font-size:2.3rem}
+  .hero-stats{gap:24px}
+  .order-wrapper{grid-template-columns:1fr}
+  .product-visual{position:static}
+  .story-inner{grid-template-columns:1fr}
+  .story-icon{display:none}
+  .f-row{grid-template-columns:1fr}
+  .nav-links a:not(.nav-order){display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Pork<span>Dry</span> Co.</div>
+  <div class="nav-links">
+    <a href="#order">Order</a>
+    <a href="#story">Our Story</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🏆 Award-Winning Dry Pork</div>
+    <h1>The <span>Finest</span> Dry<br>Pork Meat</h1>
+    <p>Handcrafted with traditional recipes, slow-dried for maximum flavour and nutrition. No preservatives. Just pure, bold pork perfection — sold by the kilo.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Order Now 🐷</button>
+      <button class="btn-outline" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">Our Story</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">5K+</div><div class="stat-label">Happy Customers</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Natural</div></div>
+      <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Rating</div></div>
+      <div class="stat"><div class="stat-num">$18</div><div class="stat-label">Per Kilogram</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER -->
+<section id="order" class="order-sec">
+  <div class="sec-label">Customise Your Order</div>
+  <h2 class="sec-title">Build Your Pack</h2>
+  <p class="sec-sub">Pick your flavour, choose your kilo amount, and place your order.</p>
+  <div class="order-wrapper">
+
+    <!-- LEFT: VISUAL -->
+    <div class="product-visual">
+      <span class="big-emoji">🐷</span>
+      <div class="p-vis-name">PorkDry Co. — <span id="vis-flavor">Original Smoky</span></div>
+      <div class="p-vis-tag">Premium Dry Pork · Free Range</div>
+      <div class="p-vis-price" id="vis-price">$18.00</div>
+      <div class="p-vis-per" id="vis-per">for 1 kg</div>
+      <div class="p-vis-note">💡 Orders above 3 kg get <strong style="color:var(--gold)">free delivery</strong> nationwide.</div>
+    </div>
+
+    <!-- RIGHT: CONFIGURATOR -->
+    <div class="config-box">
+
+      <!-- FLAVOUR -->
+      <div class="config-block">
+        <h3>🌶️ Choose Flavour</h3>
+        <div class="flavor-grid" id="flavor-grid"></div>
+      </div>
+
+      <!-- KG SELECTOR -->
+      <div class="config-block">
+        <h3>⚖️ Choose Weight</h3>
+        <div class="kg-display">
+          <span class="kg-num" id="kg-num">1</span>
+          <span class="kg-unit"> kg</span>
+        </div>
+        <input type="range" class="kg-slider" id="kg-slider" min="1" max="10" step="0.5" value="1" oninput="onSlider(this)">
+        <div class="kg-marks">
+          <span>1 kg</span><span>3 kg</span><span>5 kg</span><span>7 kg</span><span>10 kg</span>
+        </div>
+        <div class="kg-presets">
+          <button class="kg-preset active" onclick="setKg(1,this)">1 kg</button>
+          <button class="kg-preset" onclick="setKg(2,this)">2 kg</button>
+          <button class="kg-preset" onclick="setKg(3,this)">3 kg</button>
+          <button class="kg-preset" onclick="setKg(5,this)">5 kg</button>
+          <button class="kg-preset" onclick="setKg(10,this)">10 kg</button>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="config-block">
+        <h3>🧾 Order Summary</h3>
+        <div class="summary-rows">
+          <div class="sum-row"><span>Flavour</span><span id="s-flavor">Original Smoky</span></div>
+          <div class="sum-row"><span>Weight</span><span id="s-kg">1 kg</span></div>
+          <div class="sum-row"><span>Price per kg</span><span>$18.00</span></div>
+          <div class="sum-row"><span>Delivery</span><span id="s-delivery">$5.00</span></div>
+          <div class="sum-row"><span>Total</span><span id="s-total">$23.00</span></div>
+        </div>
+        <button class="order-btn" onclick="placeOrder()">Place Order →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story" class="story-sec">
+  <div class="story-inner">
+    <div class="story-text">
+      <h2>Our Story</h2>
+      <p>PorkDry Co. was born in a small family kitchen in 1998. Our grandfather's recipe — passed down through three generations — uses only the finest free-range pork, hand-rubbed with natural spices, and dried low and slow over 72 hours.</p>
+      <p>No shortcuts. No chemicals. Just pure craft and passion for great-tasting, nutritious dry pork meat — sold by the kilo the way it was always meant to be.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-txt">We source free-range pork from trusted local farms with ethical practices.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-txt">Hand-trimmed and rubbed with our secret spice blend overnight.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-txt">72-hour low-temperature drying locks in flavour and nutrients.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-txt">Vacuum-sealed and shipped fresh directly to your door.</div></div>
+      </div>
+    </div>
+    <div class="story-icon">🐷</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="feat-sec">
+  <div class="sec-label">Why Us</div>
+  <h2 class="sec-title">What Makes Us Different</h2>
+  <p class="sec-sub" style="margin-bottom:40px">We obsess over quality so you don't have to.</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon">🌿</div><div class="feat-title">100% Natural</div><div class="feat-desc">Zero artificial preservatives, flavors, or colorings. Ever.</div></div>
+    <div class="feat-card"><div class="feat-icon">🏡</div><div class="feat-title">Family Recipe</div><div class="feat-desc">A 3-generation old secret recipe in every bite.</div></div>
+    <div class="feat-card"><div class="feat-icon">🚚</div><div class="feat-title">Free Delivery 3kg+</div><div class="feat-desc">Order 3 kg or more and we ship it free, nationwide.</div></div>
+    <div class="feat-card"><div class="feat-icon">💪</div><div class="feat-title">High Protein</div><div class="feat-desc">35g protein per 100g serving. Perfect for active lifestyles.</div></div>
+    <div class="feat-card"><div class="feat-icon">⚖️</div><div class="feat-title">Sold by the Kilo</div><div class="feat-desc">You choose exactly how much you want — from 1 kg to 10 kg.</div></div>
+    <div class="feat-card"><div class="feat-icon">♻️</div><div class="feat-title">Eco Packaging</div><div class="feat-desc">Sustainable, vacuum-sealed, fully recyclable packaging.</div></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="rev-sec">
+  <div class="sec-label">Customer Reviews</div>
+  <h2 class="sec-title">People Love PorkDry</h2>
+  <p class="sec-sub" style="margin-bottom:40px">Over 5,000 happy customers and counting.</p>
+  <div class="rev-grid">
+    <div class="rev-card"><div class="stars">★★★★★</div><p class="rev-text">"I order 3 kg of the Smoky Original every month. Best dry pork I've ever had — always arrives fresh and vacuum sealed perfectly."</p><div class="rev-author"><div class="rev-avatar">JD</div><div><div class="rev-name">James D.</div><div class="rev-date">January 2025</div></div></div></div>
+    <div class="rev-card"><div class="stars">★★★★★</div><p class="rev-text">"The Spicy Chili flavour is absolutely addictive. I love that I can order exactly 2.5 kg — no more buying pre-packed sizes I don't need!"</p><div class="rev-author"><div class="rev-avatar">SR</div><div><div class="rev-name">Sarah R.</div><div class="rev-date">February 2025</div></div></div></div>
+    <div class="rev-card"><div class="stars">★★★★☆</div><p class="rev-text">"Great quality and 100% natural. The kilo ordering system is brilliant. Ordered 5 kg and got free delivery. Will definitely reorder."</p><div class="rev-author"><div class="rev-avatar">MT</div><div><div class="rev-name">Mike T.</div><div class="rev-date">December 2024</div></div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section id="contact" class="form-sec">
+  <div class="sec-label" style="color:var(--gold)">Get In Touch</div>
+  <h2 class="sec-title">Questions or Bulk Orders?</h2>
+  <p class="sec-sub">Wholesale, custom requests, or just saying hi — we'd love to hear from you.</p>
+  <div class="form-box">
+    <div class="f-success" id="f-success">
+      <div style="font-size:3rem">🎉</div>
+      <h2 style="color:var(--red);margin:14px 0 8px">Message Sent!</h2>
+      <p style="color:#777;margin-bottom:22px">Thanks! We'll get back to you within 24 hours.</p>
+      <button class="sub-btn" style="width:auto;padding:11px 32px" onclick="resetForm()">Send Another</button>
+    </div>
+    <div id="the-form">
+      <div class="f-row">
+        <div class="fg"><label>First Name *</label><input id="fn" type="text" placeholder="John"></div>
+        <div class="fg"><label>Last Name *</label><input id="ln" type="text" placeholder="Doe"></div>
+      </div>
+      <div class="fg"><label>Email *</label><input id="em" type="email" placeholder="john@email.com"></div>
+      <div class="fg"><label>Phone</label><input id="ph" type="tel" placeholder="+1 234 567 8900"></div>
+      <div class="fg"><label>Inquiry Type *</label>
+        <select id="ty">
+          <option value="">-- Select --</option>
+          <option>General Inquiry</option>
+          <option>Bulk / Wholesale Order</option>
+          <option>Delivery & Shipping Info</option>
+          <option>Custom Flavour Request</option>
+          <option>Returns & Refunds</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message *</label><textarea id="ms" rows="4" placeholder="Tell us more..."></textarea></div>
+      <div class="f-err" id="f-err"></div>
+      <button class="sub-btn" onclick="submitForm()">Send Message 📩</button>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 <span>PorkDry Co.</span> — Premium Dry Pork Meat. All rights reserved. | POC Demo</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal-wrap" id="order-modal">
+  <div class="modal-box">
+    <div style="font-size:3rem">🎉</div>
+    <h2>Order Placed!</h2>
+    <p>Your PorkDry Co. order is confirmed and being prepared right now.</p>
+    <div class="modal-detail" id="modal-detail"></div>
+    <button class="modal-close" onclick="document.getElementById('order-modal').classList.remove('open')">Done ✓</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PRICE_PER_KG = 18;
+const DELIVERY = 5;
+const FREE_DELIVERY_THRESHOLD = 3;
+
+const flavors = [
+  {id:'smoky',   name:'Original Smoky', emoji:'🥩', desc:'Sea salt, black pepper & smoked paprika'},
+  {id:'spicy',   name:'Spicy Chili',    emoji:'🌶️', desc:'Fiery red chili & cayenne kick'},
+  {id:'honey',   name:'Honey Garlic',   emoji:'🍯', desc:'Sweet honey & roasted garlic'},
+  {id:'pepper',  name:'Black Pepper',   emoji:'🧂', desc:'Bold cracked black pepper blend'},
+];
+
+let selectedFlavor = flavors[0];
+let selectedKg = 1;
+
+// Render flavors
+document.getElementById('flavor-grid').innerHTML = flavors.map(f=>`
+  <button class="flavor-btn ${f.id==='smoky'?'active':''}" id="fb-${f.id}" onclick="selectFlavor('${f.id}')">
+    <span class="f-emoji">${f.emoji}</span>
+    ${f.name}<br><span style="font-size:.75rem;font-weight:400;color:#aaa">${f.desc}</span>
+  </button>`).join('');
+
+function selectFlavor(id){
+  selectedFlavor = flavors.find(f=>f.id===id);
+  document.querySelectorAll('.flavor-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('fb-'+id).classList.add('active');
+  updateDisplay();
+}
+
+function onSlider(el){
+  selectedKg = parseFloat(el.value);
+  // clear preset active
+  document.querySelectorAll('.kg-preset').forEach(b=>b.classList.remove('active'));
+  updateDisplay();
+}
+
+function setKg(kg, btn){
+  selectedKg = kg;
+  document.getElementById('kg-slider').value = kg;
+  document.querySelectorAll('.kg-preset').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  updateSliderColor();
+  updateDisplay();
+}
+
+function updateSliderColor(){
+  const sl = document.getElementById('kg-slider');
+  const pct = ((sl.value - sl.min)/(sl.max - sl.min))*100;
+  sl.style.background = `linear-gradient(to right, var(--red) 0%, var(--red) ${pct}%, #e8d5cc ${pct}%)`;
+}
+
+function updateDisplay(){
+  const kg = selectedKg;
+  const subtotal = kg * PRICE_PER_KG;
+  const delivery = kg >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY;
+  const total = subtotal + delivery;
+
+  document.getElementById('kg-num').textContent = kg % 1 === 0 ? kg : kg.toFixed(1);
+  document.getElementById('vis-flavor').textContent = selectedFlavor.name;
+  document.getElementById('vis-price').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('vis-per').textContent = `for ${kg} kg`;
+  document.getElementById('s-flavor').textContent = selectedFlavor.name;
+  document.getElementById('s-kg').textContent = `${kg} kg`;
+  document.getElementById('s-delivery').textContent = delivery === 0 ? '🎉 Free!' : `$${delivery.toFixed(2)}`;
+  document.getElementById('s-total').textContent = `$${total.toFixed(2)}`;
+  updateSliderColor();
+}
+
+function placeOrder(){
+  const kg = selectedKg;
+  const subtotal = kg * PRICE_PER_KG;
+  const delivery = kg >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY;
+  const total = subtotal + delivery;
+  document.getElementById('modal-detail').innerHTML = `
+    <strong>Flavour:</strong> ${selectedFlavor.emoji} ${selectedFlavor.name}<br>
+    <strong>Weight:</strong> ${kg} kg<br>
+    <strong>Subtotal:</strong> $${subtotal.toFixed(2)}<br>
+    <strong>Delivery:</strong> ${delivery===0?'Free 🎉':'$'+delivery.toFixed(2)}<br>
+    <strong>Total Paid:</strong> $${total.toFixed(2)}<br>
+    <strong>Estimated Delivery:</strong> 3–5 Business Days`;
+  document.getElementById('order-modal').classList.add('open');
+}
+
+function submitForm(){
+  const fn=document.getElementById('fn').value.trim();
+  const ln=document.getElementById('ln').value.trim();
+  const em=document.getElementById('em').value.trim();
+  const ty=document.getElementById('ty').value;
+  const ms=document.getElementById('ms').value.trim();
+  const err=document.getElementById('f-err');
+  if(!fn||!ln){err.style.display='block';err.textContent='⚠️ Please enter your full name.';return}
+  if(!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.style.display='block';err.textContent='⚠️ Please enter a valid email.';return}
+  if(!ty){err.style.display='block';err.textContent='⚠️ Please select an inquiry type.';return}
+  if(!ms){err.style.display='block';err.textContent='⚠️ Please write a message.';return}
+  err.style.display='none';
+  document.getElementById('the-form').style.display='none';
+  document.getElementById('f-success').style.display='block';
+}
+
+function resetForm(){
+  ['fn','ln','em','ph','ms'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ty').value='';
+  document.getElementById('the-form').style.display='block';
+  document.getElementById('f-success').style.display='none';
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+updateDisplay();
+</script>
+</body>
+</html>

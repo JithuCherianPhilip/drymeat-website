@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DryMeat Co. | Premium Dried Meats</title>
+  <link rel="stylesheet" href="dry-meat-css.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Dry<span>Meat</span> Co.</div>
+  <div class="nav-right">
+    <a href="#products">Shop</a>
+    <a href="#contact">Contact</a>
+    <a href="#features">About</a>
+    <button class="cart-btn" onclick="openCart()">🛒 Cart <span id="cart-count">0</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Premium Dried Meats</h1>
+  <p>Handcrafted, naturally preserved, and packed with bold flavors — straight to your door.</p>
+  <button class="hero-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <h2 class="section-title">Our Products</h2>
+  <p class="section-sub">All natural. No artificial preservatives. Bold flavors.</p>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('beef',this)">Beef</button>
+    <button class="filter-btn" onclick="filterProducts('chicken',this)">Chicken</button>
+    <button class="filter-btn" onclick="filterProducts('pork',this)">Pork</button>
+    <button class="filter-btn" onclick="filterProducts('venison',this)">Venison</button>
+  </div>
+  <div class="products" id="product-grid"></div>
+</section>
+
+<!-- CONTACT FORM -->
+<section id="contact" style="background:var(--light)">
+  <h2 class="section-title">Get In Touch / Place a Custom Order</h2>
+  <p class="section-sub">Have a bulk order or a question? Fill out the form and we'll get back to you within 24 hours.</p>
+  <div class="form-card">
+    <div id="form-success" class="form-success" style="display:none">
+      <div style="font-size:3rem">✅</div>
+      <h3>Message Sent!</h3>
+      <p>We'll reach out to you shortly. Thank you!</p>
+      <button onclick="resetForm()" class="success-btn">Send Another</button>
+    </div>
+    <div id="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input id="f-fname" type="text" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input id="f-lname" type="text" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address *</label>
+        <input id="f-email" type="email" placeholder="john@email.com">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input id="f-phone" type="tel" placeholder="+1 234 567 8900">
+      </div>
+      <div class="form-group">
+        <label>Inquiry Type *</label>
+        <select id="f-type">
+          <option value="">-- Select an option --</option>
+          <option>General Inquiry</option>
+          <option>Bulk / Wholesale Order</option>
+          <option>Custom Flavor Request</option>
+          <option>Delivery & Shipping</option>
+          <option>Returns & Refunds</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Preferred Meat Type</label>
+        <div class="checkboxes">
+          <label><input type="checkbox" value="Beef" onchange="handleCheck(this)"> 🥩 Beef</label>
+          <label><input type="checkbox" value="Chicken" onchange="handleCheck(this)"> 🍗 Chicken</label>
+          <label><input type="checkbox" value="Pork" onchange="handleCheck(this)"> 🐷 Pork</label>
+          <label><input type="checkbox" value="Venison" onchange="handleCheck(this)"> 🦌 Venison</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Message *</label>
+        <textarea id="f-msg" rows="4" placeholder="Tell us about your order or question..."></textarea>
+      </div>
+      <div id="form-error" class="form-error" style="display:none"></div>
+      <button onclick="submitForm()" class="submit-btn">Send Message 📩</button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="features">
+  <h2 class="section-title" style="color:#fff">Why Choose Us?</h2>
+  <p class="section-sub" style="color:#ddd;margin-bottom:40px">Quality you can taste, trust you can feel.</p>
+  <div class="feat-grid">
+    <div><div class="feat-icon">🌿</div><div class="feat-title">100% Natural</div><div class="feat-desc">No artificial additives, preservatives, or colorings.</div></div>
+    <div><div class="feat-icon">🚚</div><div class="feat-title">Fast Delivery</div><div class="feat-desc">Delivered in vacuum-sealed packs within 3–5 business days.</div></div>
+    <div><div class="feat-icon">🏆</div><div class="feat-title">Award-Winning</div><div class="feat-desc">Recognized for quality and taste at national food expos.</div></div>
+    <div><div class="feat-icon">♻️</div><div class="feat-title">Eco Packaging</div><div class="feat-desc">Sustainable, recyclable packaging for every order.</div></div>
+  </div>
+</section>
+
+<footer>© 2025 <span>DryMeat Co.</span> — All rights reserved. | A POC Demo Site</footer>
+
+<!-- CART SIDEBAR -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h2>🛒 Your Cart</h2>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cart-total">$0.00</span></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="order-modal">
+  <div class="modal">
+    <div style="font-size:3rem">🎉</div>
+    <h2>Order Placed!</h2>
+    <p>Thank you for your order! Your premium dry meats are being prepared and will be delivered within 3–5 business days.</p>
+    <button class="modal-btn" onclick="closeModal()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
