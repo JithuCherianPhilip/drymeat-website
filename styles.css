@@ -242,15 +242,15 @@ section{
 }
 
 .product-preview{
-  width: 350px;
-  height: 350px;
+  width: 280px;
+  height: 280px;
   
 }
 
 
 .product-details{
-  width: 350px;
-  height: 250px;
+  width: 280px;
+  height: 180px;
   background:#fff;
   border-radius: 2rem;
   border: 2px solid rgba(255, 255, 255, 0.15);
@@ -270,12 +270,12 @@ section{
 }
 
 .text-details h3{
-  font-size: 0.9rem;
+  font-size:1.3rem;
   margin-bottom: 5px;
 }
 
 .price-tex{
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   margin-left: 2px;
 }
 
