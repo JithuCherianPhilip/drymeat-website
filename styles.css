@@ -311,7 +311,8 @@ section{
   overflow-x:auto;
   scrollbar-width:none;
     flex-wrap: nowrap;
-  transition: transform 0.4s ease; /* smooth movement */
+  transition: transform 0.4s ease; /* smooth movement */ 
+  margin-bottom:50px;
 
   
 }
