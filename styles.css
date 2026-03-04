@@ -280,12 +280,53 @@ section{
   color: var(--red);         /* contrasting icon/number color */
 }
 
-.features{
-  gap:25px;
+.feedback{
+
+  background:var(--cream2);
+  padding: 0;
 }
 
-.feedback{
-  background:var(--cream2);
+.feedback-head{
+    padding:60px 40px;
+
+}
+
+.feedback-box{
+  background: white;
+  height:200px;
+  width:350px;
+  max-width:500px;
+  border-radius:20px;
+  text-align:start;
+  padding:2rem;
+  box-shadow:0 4px 20px rgba(139, 26, 26, 0.5);
+  margin:20px;
+  flex-shrink:0;
+
+}
+
+.feedback-grid{
+  display:flex;
+  overflow:hidden;
+  overflow-x:auto;
+  scrollbar-width:none;
+    flex-wrap: nowrap;
+  transition: transform 0.4s ease; /* smooth movement */
+
+  
+}
+
+.feedback-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+
+.feedback-box p{
+  margin: 20px;
+}
+
+.user-feedback{
+  color:var(--amber2);
 }
 
 .connect{
@@ -367,6 +408,12 @@ section{
   width: 100%;
   padding: 14px;
   margin-top:10px;
+
+}
+
+.feedback-box{
+  height:250px;
+  width:280px;
 
 }
 
